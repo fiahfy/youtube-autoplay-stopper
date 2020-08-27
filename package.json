@@ -1,0 +1,60 @@
+{
+  "name": "youtube-autoplay-stopper",
+  "description": "Chrome Extension for Turning off Autoplay on YouTube",
+  "version": "0.0.1",
+  "author": {
+    "name": "fiahfy",
+    "email": "d.fiahfy@gmail.com",
+    "url": "https://fiahfy.github.io/"
+  },
+  "dependencies": {
+    "@vue/composition-api": "^0.6.7",
+    "vue": "^2.6.12",
+    "vuetify": "^2.3.10",
+    "vuex": "^3.5.1",
+    "vuex-module-decorators": "^0.17.0",
+    "vuex-persist": "^2.2.0",
+    "webextension-polyfill-ts": "^0.19.0"
+  },
+  "devDependencies": {
+    "@fiahfy/eslint-config-vue": "^0.0.7",
+    "copy-webpack-plugin": "^6.0.3",
+    "css-loader": "^3.6.0",
+    "eslint": "^7.7.0",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^4.3.0",
+    "husky": "^4.2.5",
+    "prettier": "^2.1.1",
+    "sass": "^1.26.10",
+    "sass-loader": "^10.0.1",
+    "svg-inline-loader": "^0.8.2",
+    "ts-loader": "^8.0.3",
+    "typescript": "^4.0.2",
+    "vue-loader": "^15.9.3",
+    "vue-template-compiler": "^2.6.12",
+    "vuetify-loader": "^1.6.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-extension-reloader": "^1.1.4"
+  },
+  "keywords": [
+    "chrome extension",
+    "vue",
+    "vuetify",
+    "webpack",
+    "youtube"
+  ],
+  "private": true,
+  "productName": "Autoplay Stopper for YouTube",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fiahfy/youtube-autoplay-stopper"
+  },
+  "scripts": {
+    "build": "webpack",
+    "dev": "webpack -w --config webpack.config.dev.js",
+    "lint": "eslint -f codeframe --ext .js,.ts,.vue --ignore-path .gitignore .",
+    "package": "npm run build -- -p && mkdir -p dist && zip -r dist/archive.zip app",
+    "test": "npm run lint"
+  }
+}
