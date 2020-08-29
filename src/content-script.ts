@@ -40,7 +40,6 @@ const init = async () => {
     return
   }
 
-  console.log('check')
   clearInterval(timer)
   timer = querySelectorAsync(
     selector,
@@ -48,13 +47,11 @@ const init = async () => {
       if (!e || !(e instanceof HTMLVideoElement)) {
         return
       }
-      console.log(e)
       if (e.readyState > 0) {
         e.pause()
         return
       }
       const handleLoadStart = () => {
-        console.log('pause')
         e.pause()
         e.removeEventListener('canplay', handleLoadStart)
         e.removeEventListener('loadstart', handleLoadStart)
