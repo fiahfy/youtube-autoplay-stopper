@@ -15,7 +15,7 @@ const querySelectorAsync = (
   timeout = 1000
 ): number => {
   const expireTime = Date.now() + timeout
-  return setInterval(() => {
+  return window.setInterval(() => {
     const e = document.querySelector(selector)
     if (e || Date.now() > expireTime) {
       clearInterval(timer)
