@@ -1,4 +1,4 @@
-import { browser } from 'webextension-polyfill-ts'
+import browser from 'webextension-polyfill'
 import { readyStore } from '~/store'
 
 const getSettings = async () => {
