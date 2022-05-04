@@ -4,7 +4,7 @@ const { VueLoaderPlugin } = require('vue-loader')
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   target: 'web',
   context: `${__dirname}/src`,
   entry: {
@@ -86,9 +86,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.ts', '.vue'],
     alias: {
-      '~~': `${__dirname}/`,
       '~': `${__dirname}/src/`,
-      vue$: 'vue/dist/vue.esm.js',
+      '~~': `${__dirname}/`,
+      vue$: 'vue/dist/vue.runtime.js',
     },
   },
 }

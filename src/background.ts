@@ -1,4 +1,3 @@
-import browser from 'webextension-polyfill'
 import { readyStore } from '~/store'
 
 const getSettings = async () => {
@@ -6,26 +5,40 @@ const getSettings = async () => {
   return JSON.parse(JSON.stringify(store.state.settings))
 }
 
-const contentLoaded = async (tabId: number) => {
-  await browser.pageAction.show(tabId)
-
+const contentLoaded = async () => {
   const settings = await getSettings()
 
   return { settings }
 }
 
-browser.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
+const settingsChanged = async () => {
+  const settings = await getSettings()
+  const tabs = await chrome.tabs.query({})
+  for (const tab of tabs) {
+    try {
+      tab.id &&
+        chrome.tabs.sendMessage(tab.id, {
+          type: 'settings-changed',
+          data: { settings },
+        })
+    } catch (e) {} // eslint-disable-line no-empty
+  }
+}
+
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
   if (changeInfo.url) {
-    const settings = await getSettings()
-    browser.tabs.sendMessage(tabId, { id: 'urlChanged', data: { settings } })
+    await chrome.tabs.sendMessage(tabId, { type: 'url-changed' })
   }
 })
 
-browser.runtime.onMessage.addListener(async (message, sender) => {
-  const { id } = message
-  const { tab } = sender
-  switch (id) {
-    case 'contentLoaded':
-      return tab?.id && (await contentLoaded(tab.id))
+chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+  const { type } = message
+  switch (type) {
+    case 'content-loaded':
+      contentLoaded().then((data) => sendResponse(data))
+      return true
+    case 'settings-changed':
+      settingsChanged().then(() => sendResponse())
+      return true
   }
 })

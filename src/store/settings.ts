@@ -6,11 +6,7 @@ export default class SettingsModule extends VuexModule {
   channelPageEnabled = true
 
   @Mutation
-  setVideoPageEnabled({
-    videoPageEnabled,
-  }: {
-    videoPageEnabled: boolean
-  }): void {
+  setVideoPageEnabled({ videoPageEnabled }: { videoPageEnabled: boolean }) {
     this.videoPageEnabled = videoPageEnabled
   }
   @Mutation
@@ -18,7 +14,7 @@ export default class SettingsModule extends VuexModule {
     channelPageEnabled,
   }: {
     channelPageEnabled: boolean
-  }): void {
+  }) {
     this.channelPageEnabled = channelPageEnabled
   }
 }
