@@ -1,9 +1,9 @@
 {
   "name": "youtube-autoplay-stopper",
-  "description": "Chrome Extension for Turning off Autoplay on YouTube",
+  "description": "Chrome Extension for Turning off Autoplay on YouTube.",
   "version": "0.0.2",
   "dependencies": {
-    "@vue/composition-api": "^1.6.0",
+    "@vue/composition-api": "^1.6.1",
     "vue": "~2.6.14",
     "vuetify": "^2.6.5",
     "vuex": "~3.6.2",
@@ -11,7 +11,9 @@
     "vuex-persist": "^3.1.3"
   },
   "devDependencies": {
-    "@fiahfy/eslint-config-vue": "^0.0.16",
+    "@fiahfy/eslint-config-vue": "^0.0.17",
+    "@fiahfy/prettier-config": "^0.0.2",
+    "@fiahfy/tsconfig": "^0.0.1",
     "@types/chrome": "^0.0.184",
     "concurrently": "^7.1.0",
     "copy-webpack-plugin": "^10.2.4",
