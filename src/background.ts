@@ -1,3 +1,4 @@
+import { Settings } from '~/models'
 import { readyStore } from '~/store'
 
 const getSettings = async () => {
@@ -11,9 +12,8 @@ const contentLoaded = async () => {
   return { settings }
 }
 
-const settingsChanged = async () => {
-  const settings = await getSettings()
-  const tabs = await chrome.tabs.query({})
+const settingsChanged = async (settings: Settings) => {
+  const tabs = await chrome.tabs.query({ url: 'https://www.youtube.com/*' })
   for (const tab of tabs) {
     try {
       tab.id &&
@@ -32,13 +32,13 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
 })
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
-  const { type } = message
+  const { type, data } = message
   switch (type) {
     case 'content-loaded':
       contentLoaded().then((data) => sendResponse(data))
       return true
     case 'settings-changed':
-      settingsChanged().then(() => sendResponse())
+      settingsChanged(data.settings).then(() => sendResponse())
       return true
   }
 })

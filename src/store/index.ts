@@ -1,27 +1,23 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { InjectionKey } from 'vue'
+import {
+  Store,
+  createStore as baseCreateStore,
+  useStore as baseUseStore,
+} from 'vuex'
 import VuexPersistence from 'vuex-persist'
-import { getModule } from 'vuex-module-decorators'
-import settings from '~/store/settings'
-
-Vue.use(Vuex)
+import * as settings from '~/store/settings'
 
 const vuexPersist = new VuexPersistence({
   storage: chrome.storage.local as any, // eslint-disable-line @typescript-eslint/no-explicit-any
   asyncStorage: true,
   restoreState: async (key, storage) => {
-    const result = await storage?.get(key)
-    const json = result[key]
-
     let state = {}
     try {
+      const result = await storage?.get(key)
+      const json = result[key]
       state = JSON.parse(json)
     } catch (e) {} // eslint-disable-line no-empty
-
-    return {
-      ...state,
-      __storageReady: true,
-    }
+    return state
   },
   saveState: async (key, state, storage) => {
     const json = JSON.stringify(state)
@@ -29,25 +25,33 @@ const vuexPersist = new VuexPersistence({
   },
 })
 
+export type State = {
+  settings: settings.State
+}
+
+export const key: InjectionKey<Store<State>> = Symbol()
+
 const createStore = () =>
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  new Vuex.Store<any>({
-    state: {},
+  baseCreateStore<State>({
     modules: {
-      settings,
+      settings: settings.module,
     },
     plugins: [
       vuexPersist.plugin,
       (store) => {
-        store.subscribe(
-          async () =>
-            await chrome.runtime.sendMessage({ type: 'settings-changed' })
-        )
+        store.subscribe(async () => {
+          const settings = store.state.settings
+          await chrome.runtime.sendMessage({
+            type: 'settings-changed',
+            data: { settings },
+          })
+        })
       },
     ],
   })
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const store = createStore()
+
 export const readyStore = async () => {
   const store = createStore()
   // @see https://github.com/championswimmer/vuex-persist#how-to-know-when-async-store-has-been-replaced
@@ -56,4 +60,4 @@ export const readyStore = async () => {
   return store
 }
 
-export const settingsStore = getModule(settings, createStore())
+export const useStore = () => baseUseStore(key)

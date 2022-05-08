@@ -1,1 +1,4 @@
-export * from '~/models/settings'
+export type Settings = {
+  videoPageEnabled: boolean
+  channelPageEnabled: boolean
+}

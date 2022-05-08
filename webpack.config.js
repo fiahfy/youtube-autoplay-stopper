@@ -1,7 +1,8 @@
+const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
-const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
+const { VuetifyLoaderPlugin } = require('vuetify-loader')
 
 module.exports = {
   mode: 'production',
@@ -32,19 +33,14 @@ module.exports = {
       },
       {
         test: /\.s(c|a)ss$/,
-        use: [
-          'vue-style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              esModule: false,
-            },
-          },
-          'sass-loader',
-        ],
+        use: ['vue-style-loader', 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(css|jpg|gif|png|woff|woff2|eot|ttf)$/,
+        test: /\.css$/,
+        use: ['vue-style-loader', 'css-loader'],
+      },
+      {
+        test: /\.png$/,
         loader: 'file-loader',
         options: {
           name: 'assets/[name].[ext]',
@@ -57,6 +53,10 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      __VUE_OPTIONS_API__: true,
+      __VUE_PROD_DEVTOOLS__: false,
+    }),
     new CopyWebpackPlugin({
       patterns: [
         'icon.png',
@@ -88,7 +88,6 @@ module.exports = {
     alias: {
       '~': `${__dirname}/src/`,
       '~~': `${__dirname}/`,
-      vue$: 'vue/dist/vue.runtime.js',
     },
   },
 }

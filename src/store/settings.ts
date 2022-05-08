@@ -1,20 +1,31 @@
-import { Module, VuexModule, Mutation } from 'vuex-module-decorators'
+import { Module } from 'vuex'
+import { Settings } from '~/models'
+import { State as RootState } from '~/store'
 
-@Module({ name: 'settings' })
-export default class SettingsModule extends VuexModule {
-  videoPageEnabled = true
-  channelPageEnabled = true
+export type State = Settings
 
-  @Mutation
-  setVideoPageEnabled({ videoPageEnabled }: { videoPageEnabled: boolean }) {
-    this.videoPageEnabled = videoPageEnabled
-  }
-  @Mutation
-  setChannelPageEnabled({
-    channelPageEnabled,
-  }: {
-    channelPageEnabled: boolean
-  }) {
-    this.channelPageEnabled = channelPageEnabled
-  }
+export const module: Module<State, RootState> = {
+  namespaced: true,
+  state: () => ({
+    videoPageEnabled: true,
+    channelPageEnabled: true,
+  }),
+  mutations: {
+    setVideoPageEnabled(
+      state,
+      { videoPageEnabled }: { videoPageEnabled: boolean }
+    ) {
+      state.videoPageEnabled = videoPageEnabled
+    },
+    setChannelPageEnabled(
+      state,
+      {
+        channelPageEnabled,
+      }: {
+        channelPageEnabled: boolean
+      }
+    ) {
+      state.channelPageEnabled = channelPageEnabled
+    },
+  },
 }
