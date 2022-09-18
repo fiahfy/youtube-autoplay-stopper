@@ -1,63 +1,71 @@
-import { InjectionKey } from 'vue'
 import {
-  Store,
-  createStore as baseCreateStore,
-  useStore as baseUseStore,
-} from 'vuex'
-import VuexPersistence from 'vuex-persist'
-import * as settings from '~/store/settings'
+  Action,
+  ThunkAction,
+  combineReducers,
+  configureStore,
+} from '@reduxjs/toolkit'
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+import {
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+  persistReducer,
+} from 'redux-persist'
+import { localStorage } from 'redux-persist-webextension-storage'
+import settingsReducer from './settings'
 
-const vuexPersist = new VuexPersistence({
-  storage: chrome.storage.local as any, // eslint-disable-line @typescript-eslint/no-explicit-any
-  asyncStorage: true,
-  restoreState: async (key, storage) => {
-    let state = {}
-    try {
-      const result = await storage?.get(key)
-      const json = result[key]
-      state = JSON.parse(json)
-    } catch (e) {} // eslint-disable-line no-empty
-    return state
-  },
-  saveState: async (key, state, storage) => {
-    const json = JSON.stringify(state)
-    await storage?.set({ [key]: json })
-  },
+const reducers = combineReducers({
+  settings: settingsReducer,
 })
 
-export type State = {
-  settings: settings.State
+export const persistConfig = {
+  key: 'root',
+  storage: localStorage,
+  version: 1,
+  whitelist: ['settings'],
 }
 
-export const key: InjectionKey<Store<State>> = Symbol()
+const persistedReducer = persistReducer(persistConfig, reducers)
 
-const createStore = () =>
-  baseCreateStore<State>({
-    modules: {
-      settings: settings.module,
-    },
-    plugins: [
-      vuexPersist.plugin,
-      (store) => {
-        store.subscribe(async () => {
-          const settings = store.state.settings
-          await chrome.runtime.sendMessage({
-            type: 'settings-changed',
-            data: { settings },
-          })
-        })
-      },
-    ],
+export function makeStore() {
+  return configureStore({
+    reducer: persistedReducer,
+    // @see https://redux-toolkit.js.org/usage/usage-guide#use-with-redux-persist
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+      }),
   })
-
-export const store = createStore()
-
-export const readyStore = async () => {
-  const store = createStore()
-  // @see https://github.com/championswimmer/vuex-persist#how-to-know-when-async-store-has-been-replaced
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  await (store as any).restored
-  return store
 }
 
-export const useStore = () => baseUseStore(key)
+const store = makeStore()
+
+store.subscribe(async () => {
+  const settings = store.getState().settings
+  await chrome.runtime.sendMessage({
+    type: 'settings-changed',
+    data: { settings },
+  })
+})
+
+export type AppState = ReturnType<typeof store.getState>
+
+export type AppDispatch = typeof store.dispatch
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  AppState,
+  unknown,
+  Action<string>
+>
+
+export default store
+
+export const useAppDispatch = () => useDispatch<AppDispatch>()
+
+export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector

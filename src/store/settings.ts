@@ -1,31 +1,40 @@
-import { Module } from 'vuex'
+import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit'
 import { Settings } from '~/models'
-import { State as RootState } from '~/store'
+import { AppState } from '~/store'
 
-export type State = Settings
+type State = Settings
 
-export const module: Module<State, RootState> = {
-  namespaced: true,
-  state: () => ({
-    videoPageEnabled: true,
-    channelPageEnabled: true,
-  }),
-  mutations: {
-    setVideoPageEnabled(
-      state,
-      { videoPageEnabled }: { videoPageEnabled: boolean }
-    ) {
-      state.videoPageEnabled = videoPageEnabled
+export const initialState: State = {
+  channelPageEnabled: true,
+  videoPageEnabled: true,
+}
+
+export const settingsSlice = createSlice({
+  name: 'settings',
+  initialState,
+  reducers: {
+    setChannelPageEnabled(state, action: PayloadAction<boolean>) {
+      return { ...state, channelPageEnabled: action.payload }
     },
-    setChannelPageEnabled(
-      state,
-      {
-        channelPageEnabled,
-      }: {
-        channelPageEnabled: boolean
-      }
-    ) {
-      state.channelPageEnabled = channelPageEnabled
+    setVideoPageEnabled(state, action: PayloadAction<boolean>) {
+      return { ...state, videoPageEnabled: action.payload }
     },
   },
-}
+})
+
+export const { setChannelPageEnabled, setVideoPageEnabled } =
+  settingsSlice.actions
+
+export default settingsSlice.reducer
+
+export const selectSettings = (state: AppState) => state.settings
+
+export const selectChannelPageEnabled = createSelector(
+  selectSettings,
+  (settings) => settings.channelPageEnabled
+)
+
+export const selectVideoPageEnabled = createSelector(
+  selectSettings,
+  (settings) => settings.videoPageEnabled
+)

@@ -1,8 +1,5 @@
-const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { VueLoaderPlugin } = require('vue-loader')
-const { VuetifyLoaderPlugin } = require('vuetify-loader')
 
 module.exports = {
   mode: 'production',
@@ -21,23 +18,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts$/,
+        test: /\.tsx?$/,
         loader: 'ts-loader',
-        options: {
-          appendTsSuffixTo: [/\.vue$/],
-        },
-      },
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader',
       },
       {
         test: /\.s(c|a)ss$/,
-        use: ['vue-style-loader', 'css-loader', 'sass-loader'],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.css$/,
-        use: ['vue-style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.png$/,
@@ -53,10 +43,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.DefinePlugin({
-      __VUE_OPTIONS_API__: true,
-      __VUE_PROD_DEVTOOLS__: false,
-    }),
     new CopyWebpackPlugin({
       patterns: [
         'icon.png',
@@ -80,11 +66,9 @@ module.exports = {
       filename: './popup.html',
       chunks: ['popup'],
     }),
-    new VueLoaderPlugin(),
-    new VuetifyLoaderPlugin(),
   ],
   resolve: {
-    extensions: ['.js', '.ts', '.vue'],
+    extensions: ['.js', '.ts', '.tsx'],
     alias: {
       '~': `${__dirname}/src/`,
       '~~': `${__dirname}/`,

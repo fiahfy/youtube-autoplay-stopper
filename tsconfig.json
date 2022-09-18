@@ -3,13 +3,14 @@
   "compilerOptions": {
     "target": "es2019",
     "module": "esnext",
+    "jsx": "react-jsx",
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"],
       "~~/*": ["./*"]
     },
-    "types": ["chrome", "vuetify"],
+    "types": ["chrome"],
     "experimentalDecorators": true
   },
   "include": ["src"]

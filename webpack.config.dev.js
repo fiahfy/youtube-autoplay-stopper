@@ -14,6 +14,23 @@ module.exports = {
       config.entry['content-script'],
     ],
   },
+  module: {
+    ...config.module,
+    rules: config.module.rules.map((rule) => {
+      if (rule.loader === 'ts-loader') {
+        return {
+          ...rule,
+          options: {
+            ...rule.options,
+            compilerOptions: {
+              jsx: 'react-jsxdev',
+            },
+          },
+        }
+      }
+      return rule
+    }),
+  },
   plugins: [
     ...config.plugins,
     new webpack.EnvironmentPlugin({
