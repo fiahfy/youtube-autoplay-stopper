@@ -3,15 +3,32 @@ import { Settings } from '~/models'
 let settings: Settings
 let timer = -1
 
-const isVideoUrl = () => new URL(location.href).pathname === '/watch'
-const isChannelUrl = () =>
-  new URL(location.href).pathname.indexOf('/channel') === 0
+const getPageType = () => {
+  const url = new URL(location.href)
+  switch (true) {
+    case !!url.pathname.match(/^\/watch$/):
+      return 'video'
+    case !!url.pathname.match(/^\/channel\/[^/]+$/) ||
+      !!url.pathname.match(/^\/@[^/]+(\/featured)?$/):
+      return 'channel'
+    default:
+      return null
+  }
+}
+
+const isEnabled = (type: 'video' | 'channel') =>
+  type === 'video' ? settings.videoPageEnabled : settings.channelPageEnabled
+
+const getSelector = (type: 'video' | 'channel') =>
+  type === 'video'
+    ? 'ytd-watch-flexy video.html5-main-video'
+    : 'ytd-browse video.html5-main-video'
 
 const querySelectorAsync = (
   selector: string,
   callback: (e: Element | null) => void,
   interval = 100,
-  timeout = 1000
+  timeout = 10000
 ) => {
   const expireTime = Date.now() + timeout
   return window.setInterval(() => {
@@ -23,23 +40,21 @@ const querySelectorAsync = (
   }, interval)
 }
 
-const init = async () => {
-  const selector = (() => {
-    switch (true) {
-      case isVideoUrl() && settings.videoPageEnabled:
-        return 'ytd-watch-flexy video.html5-main-video'
-      case isChannelUrl() && settings.channelPageEnabled:
-        return 'ytd-browse video.html5-main-video'
-      default:
-        return null
-    }
-  })()
+const init = () => {
+  clearInterval(timer)
 
-  if (!selector) {
+  const type = getPageType()
+  if (!type) {
     return
   }
 
-  clearInterval(timer)
+  const needPause = isEnabled(type)
+  if (!needPause) {
+    return
+  }
+
+  const selector = getSelector(type)
+
   timer = querySelectorAsync(
     selector,
     (e) => {
@@ -67,8 +82,8 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   const { type, data } = message
   switch (type) {
     case 'url-changed':
-      init().then(() => sendResponse())
-      return true
+      init()
+      return sendResponse()
     case 'settings-changed':
       settings = data.settings
       return sendResponse()
@@ -78,5 +93,5 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 document.addEventListener('DOMContentLoaded', async () => {
   const data = await chrome.runtime.sendMessage({ type: 'content-loaded' })
   settings = data.settings
-  await init()
+  init()
 })

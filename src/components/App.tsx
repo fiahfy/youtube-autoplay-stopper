@@ -35,20 +35,20 @@ const InnerApp = () => {
       <FormControlLabel
         control={
           <Switch
-            checked={channelPageEnabled}
-            onChange={handleChangeChannelPageEnabled}
-          />
-        }
-        label="Stop Autoplay on Video Page"
-      />
-      <FormControlLabel
-        control={
-          <Switch
             checked={videoPageEnabled}
             onChange={handleChangeVideoPageEnabled}
           />
         }
-        label="Stop Autoplay on Channel Page"
+        label="Turn off on Video Page"
+      />
+      <FormControlLabel
+        control={
+          <Switch
+            checked={channelPageEnabled}
+            onChange={handleChangeChannelPageEnabled}
+          />
+        }
+        label="Turn off on Channel Page"
       />
     </FormGroup>
   )
@@ -60,7 +60,7 @@ const App = () => {
       <CssBaseline />
       <GlobalStyles
         styles={{
-          html: { overflowY: 'hidden', width: 330 },
+          html: { overflowY: 'hidden', width: 280 },
         }}
       />
       <InnerApp />
