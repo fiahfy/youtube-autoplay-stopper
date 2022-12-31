@@ -11,9 +11,9 @@ module.exports = {
     popup: './popup',
   },
   output: {
-    path: `${__dirname}/app/`,
+    path: `${__dirname}/app`,
     filename: '[name].js',
-    publicPath: './',
+    assetModuleFilename: 'assets/[hash][ext][query]',
   },
   module: {
     rules: [
@@ -22,23 +22,12 @@ module.exports = {
         loader: 'ts-loader',
       },
       {
-        test: /\.s(c|a)ss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
         test: /\.png$/,
-        loader: 'file-loader',
-        options: {
-          name: 'assets/[name].[ext]',
-        },
+        type: 'asset/resource',
       },
       {
         test: /\.svg$/,
-        loader: 'svg-inline-loader',
+        type: 'asset/source',
       },
     ],
   },
