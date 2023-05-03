@@ -15,7 +15,7 @@ import {
   setVideoPageEnabled,
 } from '~/store/settings'
 
-const InnerApp = () => {
+const App = () => {
   const channelPageEnabled = useAppSelector(selectChannelPageEnabled)
   const videoPageEnabled = useAppSelector(selectVideoPageEnabled)
   const dispatch = useAppDispatch()
@@ -54,7 +54,7 @@ const InnerApp = () => {
   )
 }
 
-const App = () => {
+const Popup = () => {
   return (
     <StoreProvider>
       <CssBaseline />
@@ -63,9 +63,9 @@ const App = () => {
           html: { overflowY: 'hidden', width: 280 },
         }}
       />
-      <InnerApp />
+      <App />
     </StoreProvider>
   )
 }
 
-export default App
+export default Popup

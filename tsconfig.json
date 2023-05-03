@@ -1,17 +1,16 @@
 {
   "extends": "@fiahfy/tsconfig/tsconfig",
   "compilerOptions": {
-    "target": "es2019",
+    "target": "es2021",
     "module": "esnext",
     "jsx": "react-jsx",
-    "sourceMap": true,
+    "noEmit": true,
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"],
       "~~/*": ["./*"]
     },
-    "types": ["chrome"],
-    "experimentalDecorators": true
+    "types": ["chrome"]
   },
   "include": ["src"]
 }

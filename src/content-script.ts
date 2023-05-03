@@ -90,8 +90,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   }
 })
 
-document.addEventListener('DOMContentLoaded', async () => {
-  const data = await chrome.runtime.sendMessage({ type: 'content-loaded' })
+chrome.runtime.sendMessage({ type: 'content-loaded' }).then((data) => {
   settings = data.settings
   init()
 })

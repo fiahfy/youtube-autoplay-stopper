@@ -1,7 +1,6 @@
 import { createRoot } from 'react-dom/client'
-import App from '~/components/App'
+import Popup from '~/components/Popup'
 
-const container = document.querySelector('#app')
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const root = createRoot(container!)
-root.render(<App />)
+const container = document.querySelector('#app') as Element
+const root = createRoot(container)
+root.render(<Popup />)
