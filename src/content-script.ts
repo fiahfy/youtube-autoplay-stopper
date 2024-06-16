@@ -28,7 +28,7 @@ const querySelectorAsync = (
   selector: string,
   callback: (e: Element | null) => void,
   interval = 100,
-  timeout = 10000
+  timeout = 10000,
 ) => {
   const expireTime = Date.now() + timeout
   return window.setInterval(() => {
@@ -74,7 +74,7 @@ const init = () => {
       e.addEventListener('loadstart', handleLoadStart)
     },
     100,
-    60000
+    60000,
   )
 }
 

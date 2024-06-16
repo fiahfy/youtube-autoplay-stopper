@@ -31,10 +31,10 @@ export const selectSettings = (state: AppState) => state.settings
 
 export const selectChannelPageEnabled = createSelector(
   selectSettings,
-  (settings) => settings.channelPageEnabled
+  (settings) => settings.channelPageEnabled,
 )
 
 export const selectVideoPageEnabled = createSelector(
   selectSettings,
-  (settings) => settings.videoPageEnabled
+  (settings) => settings.videoPageEnabled,
 )

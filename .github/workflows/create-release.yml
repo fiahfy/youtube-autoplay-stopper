@@ -1,4 +1,4 @@
-name: Web Extension
+name: Create Release
 
 on:
   push:
@@ -6,21 +6,21 @@ on:
       - 'v*'
 
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - run: yarn
       - run: yarn build
       - run: yarn package
-      - uses: softprops/action-gh-release@v1
+      - uses: softprops/action-gh-release@v2
         with:
-          draft: true
           files: extension.zip
-      - uses: mnao305/chrome-extension-upload@v4.0.1
+          generate_release_notes: true
+      - uses: mnao305/chrome-extension-upload@v5.0.0
         with:
           file-path: extension.zip
           extension-id: ${{ vars.EXTENSION_ID }}
