@@ -1,10 +1,6 @@
 {
-  "extends": "@fiahfy/tsconfig/tsconfig",
+  "extends": "@tsconfig/vite-react/tsconfig.json",
   "compilerOptions": {
-    "target": "es2021",
-    "module": "esnext",
-    "jsx": "react-jsx",
-    "noEmit": true,
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"],

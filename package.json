@@ -18,7 +18,7 @@
     "@crxjs/vite-plugin": "^2.0.0-beta.23",
     "@fiahfy/eslint-config-react": "^0.1.1",
     "@fiahfy/prettier-config": "^0.0.3",
-    "@fiahfy/tsconfig": "^0.0.2",
+    "@tsconfig/vite-react": "^3.0.2",
     "@types/chrome": "^0.0.268",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",

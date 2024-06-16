@@ -535,11 +535,6 @@
   resolved "https://registry.yarnpkg.com/@fiahfy/prettier-config/-/prettier-config-0.0.3.tgz#89558a0dc91f890df855ba892c6a07403e02f869"
   integrity sha512-eV6vDznC+VSO41zKLmmrJvX/6S78QMcDnMbyIMyfekPkZvezdexp92LvpUO+gTBdJM7EHkizTaNaDZZKfXHZ0w==
 
-"@fiahfy/tsconfig@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@fiahfy/tsconfig/-/tsconfig-0.0.2.tgz#c4950a18ac2ee756ba7468e746cb4f710e486230"
-  integrity sha512-xd7s8E0KkCnG952csB3a57MSvH+lnW8c+HEVydCPOdAH65r1mu66ApoJPIfPucD/4DiHG4Bcpjre6ZtjVyBSVQ==
-
 "@floating-ui/core@^1.0.0":
   version "1.6.2"
   resolved "https://registry.yarnpkg.com/@floating-ui/core/-/core-1.6.2.tgz#d37f3e0ac1f1c756c7de45db13303a266226851a"
@@ -832,6 +827,11 @@
   version "4.18.0"
   resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.18.0.tgz#5d694d345ce36b6ecf657349e03eb87297e68da4"
   integrity sha512-UOo5FdvOL0+eIVTgS4tIdbW+TtnBLWg1YBCcU2KWM7nuNwRz9bksDX1bekJJCpu25N1DVWaCwnT39dVQxzqS8g==
+
+"@tsconfig/vite-react@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@tsconfig/vite-react/-/vite-react-3.0.2.tgz#e49e4be4ee88858552316d22abafc95cd9e57958"
+  integrity sha512-AFynAtE1Un3Rko20Ghe2mVC/QWD4rStJ2PnyIZU2kzC4UyWpf1YhAEY87GojH/XPZCY8Mdt27gsYyy+6l6HV+w==
 
 "@types/babel__core@^7.20.5":
   version "7.20.5"
