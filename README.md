@@ -1,6 +1,6 @@
 # Autoplay Stopper for YouTube
 
-![badge](https://github.com/fiahfy/youtube-autoplay-stopper/workflows/Create%20Release/badge.svg)
+[![Create Release](https://github.com/fiahfy/youtube-autoplay-stopper/actions/workflows/create-release.yml/badge.svg)](https://github.com/fiahfy/youtube-autoplay-stopper/actions/workflows/create-release.yml)
 
 > Chrome Extension for Turning off Autoplay on YouTube.
 

@@ -1,4 +1,4 @@
-import { Settings } from '~/models'
+import type { Settings } from '~/models'
 import { persistConfig } from '~/store'
 import { initialState as initialSettings } from '~/store/settings'
 

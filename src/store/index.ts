@@ -1,10 +1,14 @@
 import {
-  Action,
-  ThunkAction,
+  type Action,
+  type ThunkAction,
   combineReducers,
   configureStore,
 } from '@reduxjs/toolkit'
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+import {
+  type TypedUseSelectorHook,
+  useDispatch,
+  useSelector,
+} from 'react-redux'
 import {
   FLUSH,
   PAUSE,

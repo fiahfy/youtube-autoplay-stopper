@@ -1,4 +1,4 @@
-import { Settings } from '~/models'
+import type { Settings } from '~/models'
 
 let settings: Settings
 let timer = -1

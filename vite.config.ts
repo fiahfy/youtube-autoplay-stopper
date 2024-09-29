@@ -1,7 +1,7 @@
+import { crx, defineManifest } from '@crxjs/vite-plugin'
+import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
-import react from '@vitejs/plugin-react'
-import { crx, defineManifest } from '@crxjs/vite-plugin'
 import packageJson from './package.json'
 
 const { name, description, version } = packageJson

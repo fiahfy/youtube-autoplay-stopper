@@ -1,6 +1,10 @@
-import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit'
-import { Settings } from '~/models'
-import { AppState } from '~/store'
+import {
+  type PayloadAction,
+  createSelector,
+  createSlice,
+} from '@reduxjs/toolkit'
+import type { Settings } from '~/models'
+import type { AppState } from '~/store'
 
 type State = Settings
 
