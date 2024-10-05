@@ -6,7 +6,7 @@ import store from '~/store'
 
 type Props = { children: ReactNode }
 
-export const StoreProvider = (props: Props) => {
+const StoreProvider = (props: Props) => {
   const { children } = props
 
   const persistor = persistStore(store)
@@ -17,3 +17,5 @@ export const StoreProvider = (props: Props) => {
     </Provider>
   )
 }
+
+export default StoreProvider
