@@ -4,10 +4,10 @@ import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import packageJson from './package.json'
 
-const { name, description, version } = packageJson
+const { description, version, productName } = packageJson
 
 const manifest = defineManifest({
-  name,
+  name: productName,
   description,
   version,
   manifest_version: 3,
