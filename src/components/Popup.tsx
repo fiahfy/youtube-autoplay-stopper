@@ -31,24 +31,28 @@ const App = () => {
   }
 
   return (
-    <FormGroup sx={{ mx: 2, my: 1 }}>
+    <FormGroup sx={{ gap: 1, mx: 2, my: 1, userSelect: 'none' }}>
       <FormControlLabel
         control={
           <Switch
             checked={videoPageEnabled}
             onChange={handleChangeVideoPageEnabled}
+            size="small"
           />
         }
         label="Turn off on Video Page"
+        slotProps={{ typography: { variant: 'body2' } }}
       />
       <FormControlLabel
         control={
           <Switch
             checked={channelPageEnabled}
             onChange={handleChangeChannelPageEnabled}
+            size="small"
           />
         }
         label="Turn off on Channel Page"
+        slotProps={{ typography: { variant: 'body2' } }}
       />
     </FormGroup>
   )
@@ -60,7 +64,7 @@ const Popup = () => {
       <CssBaseline />
       <GlobalStyles
         styles={{
-          html: { overflowY: 'hidden', width: 280 },
+          html: { overflowY: 'hidden', width: 250 },
         }}
       />
       <App />
