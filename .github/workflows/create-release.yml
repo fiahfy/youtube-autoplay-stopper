@@ -16,14 +16,13 @@ jobs:
       - run: corepack enable
       - run: yarn
       - run: yarn build
-      - run: yarn package
       - uses: softprops/action-gh-release@v2
         with:
-          files: extension.zip
+          files: dist-zip/dist.zip
           generate_release_notes: true
       - uses: mnao305/chrome-extension-upload@v5.0.0
         with:
-          file-path: extension.zip
+          file-path: dist-zip/dist.zip
           extension-id: ${{ vars.EXTENSION_ID }}
           client-id: ${{ secrets.CLIENT_ID }}
           client-secret: ${{ secrets.CLIENT_SECRET }}

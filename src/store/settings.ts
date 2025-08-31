@@ -1,7 +1,7 @@
 import {
-  type PayloadAction,
   createSelector,
   createSlice,
+  type PayloadAction,
 } from '@reduxjs/toolkit'
 import type { Settings } from '~/models'
 import type { AppState } from '~/store'

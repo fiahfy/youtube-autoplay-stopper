@@ -130,4 +130,4 @@ dist
 .pnp.*
 
 # Chrome Extension
-extension.zip
+dist-zip

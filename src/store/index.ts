@@ -1,8 +1,8 @@
 import {
   type Action,
-  type ThunkAction,
   combineReducers,
   configureStore,
+  type ThunkAction,
 } from '@reduxjs/toolkit'
 import {
   type TypedUseSelectorHook,
@@ -14,9 +14,9 @@ import {
   PAUSE,
   PERSIST,
   PURGE,
+  persistReducer,
   REGISTER,
   REHYDRATE,
-  persistReducer,
 } from 'redux-persist'
 import { localStorage } from 'redux-persist-webextension-storage'
 import settingsReducer from './settings'
