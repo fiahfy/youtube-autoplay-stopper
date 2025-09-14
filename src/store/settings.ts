@@ -9,36 +9,36 @@ import type { AppState } from '~/store'
 type State = Settings
 
 export const initialState: State = {
-  channelPageEnabled: true,
-  videoPageEnabled: true,
+  channelPageDisabled: true,
+  videoPageDisabled: true,
 }
 
 export const settingsSlice = createSlice({
   name: 'settings',
   initialState,
   reducers: {
-    setChannelPageEnabled(state, action: PayloadAction<boolean>) {
-      return { ...state, channelPageEnabled: action.payload }
+    setChannelPageDisabled(state, action: PayloadAction<boolean>) {
+      return { ...state, channelPageDisabled: action.payload }
     },
-    setVideoPageEnabled(state, action: PayloadAction<boolean>) {
-      return { ...state, videoPageEnabled: action.payload }
+    setVideoPageDisabled(state, action: PayloadAction<boolean>) {
+      return { ...state, videoPageDisabled: action.payload }
     },
   },
 })
 
-export const { setChannelPageEnabled, setVideoPageEnabled } =
+export const { setChannelPageDisabled, setVideoPageDisabled } =
   settingsSlice.actions
 
 export default settingsSlice.reducer
 
 export const selectSettings = (state: AppState) => state.settings
 
-export const selectChannelPageEnabled = createSelector(
+export const selectChannelPageDisabled = createSelector(
   selectSettings,
-  (settings) => settings.channelPageEnabled,
+  (settings) => settings.channelPageDisabled,
 )
 
-export const selectVideoPageEnabled = createSelector(
+export const selectVideoPageDisabled = createSelector(
   selectSettings,
-  (settings) => settings.videoPageEnabled,
+  (settings) => settings.videoPageDisabled,
 )

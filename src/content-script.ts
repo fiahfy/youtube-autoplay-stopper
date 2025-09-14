@@ -16,8 +16,8 @@ const getPageType = () => {
   }
 }
 
-const isEnabled = (type: 'video' | 'channel') =>
-  type === 'video' ? settings.videoPageEnabled : settings.channelPageEnabled
+const isDisabled = (type: 'video' | 'channel') =>
+  type === 'video' ? settings.videoPageDisabled : settings.channelPageDisabled
 
 const getSelector = (type: 'video' | 'channel') =>
   type === 'video'
@@ -48,7 +48,7 @@ const init = () => {
     return
   }
 
-  const needPause = isEnabled(type)
+  const needPause = isDisabled(type)
   if (!needPause) {
     return
   }

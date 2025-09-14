@@ -1,4 +1,4 @@
 export type Settings = {
-  videoPageEnabled: boolean
-  channelPageEnabled: boolean
+  videoPageDisabled: boolean
+  channelPageDisabled: boolean
 }
