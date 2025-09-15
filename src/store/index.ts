@@ -19,7 +19,7 @@ import {
   REHYDRATE,
 } from 'redux-persist'
 import { localStorage } from 'redux-persist-webextension-storage'
-import settingsReducer from './settings'
+import settingsReducer from '~/store/settings'
 
 const reducers = combineReducers({
   settings: settingsReducer,
